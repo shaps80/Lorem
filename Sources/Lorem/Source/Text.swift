@@ -176,7 +176,7 @@ public extension Lorem where Content == Text {
         let amount = Lorem<Int>.amount(in: range, by: stride)
 
         if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
-            return Text(amount, format: .currency(code: code))
+            return Text(amount, format: .currency(code: code).presentation(.narrow))
         } else {
             return Text(Lorem<String>.amount(in: range, by: stride, currency: code))
         }
