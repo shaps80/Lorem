@@ -160,25 +160,25 @@ public extension Lorem where Content == Text {
         amount(in: 0...100)
     }
 
-    static func amount(in range: ClosedRange<Int>, by stride: Int = 5, currency code: String? = nil) -> Content {
+    static func amount(in range: ClosedRange<Int>, by stride: Int = 5, locale: Locale = .current) -> Content {
+        let amount = Lorem<Int>.amount(in: range, by: stride)
+
         var resolved: String {
             if #available(iOS 16, tvOS 13, macOS 13, watchOS 9, *) {
-                return Locale.current.currency?.identifier ?? "USD"
+                return locale.currency?.identifier ?? "USD"
             } else {
-                return Locale.current.currencyCode ?? "USD"
+                return locale.currencyCode ?? "USD"
             }
         }
 
-        return amount(in: range, by: stride, currency: code ?? resolved)
+        if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
+            return Text(amount, format: .currency(code: resolved).presentation(.narrow))
+        } else {
+            return Text(Lorem<String>.amount(in: range, by: stride, locale: locale))
+        }
     }
 
-    static func amount(in range: ClosedRange<Int> = 0...100, by stride: Int = 5, currency code: String) -> Content {
-        let amount = Lorem<Int>.amount(in: range, by: stride)
-
-        if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
-            return Text(amount, format: .currency(code: code).presentation(.narrow))
-        } else {
-            return Text(Lorem<String>.amount(in: range, by: stride, currency: code))
-        }
+    static func amount(locale: Locale) -> Content {
+        amount(in: 0...100, locale: locale)
     }
 }
