@@ -175,9 +175,14 @@ public extension Lorem where Content == String {
         amount(in: 0...100)
     }
 
-    static func amount(in range: ClosedRange<Int>, by stride: Int = 5) -> Content {
+    static func amount(in range: ClosedRange<Int>, by stride: Int = 5, currency code: String? = nil) -> Content {
+        amount(in: range, by: stride, currency: code ?? "USD")
+    }
+
+    static func amount(in range: ClosedRange<Int> = 0...100, by stride: Int = 5, currency code: String) -> Content {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.currencyCode = code
         let amount = Lorem<Int>.amount(in: range, by: stride)
         return formatter.string(from: NSNumber(value: amount)) ?? ""
     }
