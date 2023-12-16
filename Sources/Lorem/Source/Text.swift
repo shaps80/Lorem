@@ -164,7 +164,7 @@ public extension Lorem where Content == Text {
         let amount = Lorem<Int>.amount(in: range, by: stride)
 
         var resolved: String {
-            if #available(iOS 16, tvOS 13, macOS 13, watchOS 9, *) {
+            if #available(iOS 16, tvOS 16, macOS 13, watchOS 9, *) {
                 return locale.currency?.identifier ?? "USD"
             } else {
                 return locale.currencyCode ?? "USD"
