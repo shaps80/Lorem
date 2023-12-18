@@ -79,7 +79,7 @@ public extension Lorem where Content == String {
 
     /// Returns a placeholder for representing a single paragraph, containing 2 to 5 sentences
     static var paragraph: String {
-        sentences(2...5, separator: "\n\n")
+        sentences(2...5)
     }
 
     /// Returns a placeholder for representing the specified number of paragraphs
