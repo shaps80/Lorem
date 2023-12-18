@@ -79,14 +79,14 @@ public extension Lorem where Content == String {
 
     /// Returns a placeholder for representing a single paragraph, containing 2 to 5 sentences
     static var paragraph: String {
-        sentences(2...5)
+        sentences(2...5, separator: "\n\n")
     }
 
     /// Returns a placeholder for representing the specified number of paragraphs
     /// - Parameters:
     ///   - count: The number of times a paragraph should be generated
     ///   - separator: The separator to use when composing these paragraphs
-    static func paragraphs(_ count: Int, separator: String = "\n") -> String {
+    static func paragraphs(_ count: Int, separator: String = "\n\n") -> String {
         Composer(paragraph, count: count, separator: separator)
     }
 
@@ -94,7 +94,7 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - count: The number of times a paragraph should be generated, the actual count will be a random value in the provided range
     ///   - separator: The separator to use when composing these paragraphs
-    static func paragraphs(_ countRange: ClosedRange<Int>, separator: String = "\n") -> String {
+    static func paragraphs(_ countRange: ClosedRange<Int>, separator: String = "\n\n") -> String {
         Composer(paragraph, countRange: countRange, separator: separator)
     }
 
