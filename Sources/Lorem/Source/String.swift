@@ -4,7 +4,7 @@ public extension Lorem where Content == String {
     typealias L = Lorem<Content>
 
     /// Returns a placeholder for representing a single word
-    static var word: String {
+    static var word: Content {
         words(1)
     }
 
@@ -12,52 +12,54 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - count: The number of times a word should be generated
     ///   - separator: The separator to use when composing these words
-    static func words(_ count: Int, separator: String = " ") -> String {
-        Composer(L.Data.words.randomElement()!, count: count, separator: separator)
+    static func words(_ count: Int, separator: String = " ") -> Content {
+        let word = Lorem<String>.Data.words.randomElement()!
+        return Composer(word, count: count, separator: separator)
     }
 
     /// Returns a placeholder for representing the specified number of words
     /// - Parameters:
     ///   - countRange: The number of times a word should be generated, the actual count will be a random value in the provided range
     ///   - separator: The separator to use when composing these words
-    static func words(_ countRange: ClosedRange<Int>, separator: String = " ") -> String {
-        Composer(L.Data.words.randomElement()!, countRange: countRange, separator: separator)
+    static func words(_ countRange: ClosedRange<Int>, separator: String = " ") -> Content {
+        let word = Lorem<String>.Data.words.randomElement()!
+        return Composer(word, countRange: countRange, separator: separator)
     }
 
     /// Returns a placeholder for representing a title, containing 2 to 5 words
-    static var title: String {
+    static var title: Content {
         let wordsInTitle = (2...5).randomElement()!
         return words(wordsInTitle).capitalized
     }
 
     /// Returns a placeholder for representing a title, containing the specified number of words
-    static func title(_ count: Int) -> String {
+    static func title(_ count: Int) -> Content {
         words(count).capitalized
     }
 
     /// Returns a placeholder for representing a title, containing the specified number of words
     /// - Parameter countRange: The number of times a word should be generated, the actual count will be a random value in the provided range
-    static func title(_ countRange: ClosedRange<Int>) -> String {
+    static func title(_ countRange: ClosedRange<Int>) -> Content {
         words(countRange).capitalized
     }
 
     /// Returns a placeholder for representing a person's first name
-    static var firstName: String {
-        L.Data.firstNames.randomElement()!
+    static var firstName: Content {
+        Lorem<String>.Data.firstNames.randomElement()!
     }
 
     /// Returns a placeholder for representing a person's last name
-    static var lastName: String {
-        L.Data.lastNames.randomElement()!
+    static var lastName: Content {
+        Lorem<String>.Data.lastNames.randomElement()!
     }
 
     /// Returns a placeholder for representing a person's name
-    static var name: String {
+    static var name: Content {
         "\(firstName) \(lastName)"
     }
 
     /// Returns a placeholder for representing a single sentence, containing 5 to 10 words
-    static var sentence: String {
+    static var sentence: Content {
         Composer(word, countRange: 5...10, separator: " ", terminator: ".").capitalizingFirstLetter
     }
 
@@ -65,7 +67,7 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - count: The number of times a sentence should be generated
     ///   - separator: The separator to use when composing these sentences
-    static func sentences(_ count: Int, separator: String = " ") -> String {
+    static func sentences(_ count: Int, separator: String = " ") -> Content {
         Composer(sentence, count: count, separator: separator)
     }
 
@@ -73,12 +75,12 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - countRange: The number of times a sentence should be generated, the actual count will be a random value in the provided range
     ///   - separator: The separator to use when composing these sentences
-    static func sentences(_ countRange: ClosedRange<Int>, separator: String = " ") -> String {
+    static func sentences(_ countRange: ClosedRange<Int>, separator: String = " ") -> Content {
         Composer(sentence, countRange: countRange, separator: separator)
     }
 
     /// Returns a placeholder for representing a single paragraph, containing 2 to 5 sentences
-    static var paragraph: String {
+    static var paragraph: Content {
         sentences(2...5)
     }
 
@@ -86,7 +88,7 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - count: The number of times a paragraph should be generated
     ///   - separator: The separator to use when composing these paragraphs
-    static func paragraphs(_ count: Int, separator: String = "\n\n") -> String {
+    static func paragraphs(_ count: Int, separator: String = "\n\n") -> Content {
         Composer(paragraph, count: count, separator: separator)
     }
 
@@ -94,41 +96,41 @@ public extension Lorem where Content == String {
     /// - Parameters:
     ///   - count: The number of times a paragraph should be generated, the actual count will be a random value in the provided range
     ///   - separator: The separator to use when composing these paragraphs
-    static func paragraphs(_ countRange: ClosedRange<Int>, separator: String = "\n\n") -> String {
+    static func paragraphs(_ countRange: ClosedRange<Int>, separator: String = "\n\n") -> Content {
         Composer(paragraph, countRange: countRange, separator: separator)
     }
 
     /// Returns a placeholder URL
     static var url: String {
-        "http://" + L.Data.siteDomains.randomElement()! + "/"
+        "http://" + Lorem<String>.Data.siteDomains.randomElement()! + "/"
     }
 
     /// Returns a placeholder email address
-    static var email: String {
+    static var email: Content {
         let delimiter = ["", ".", "-", "_"].randomElement()!
-        let domain = L.Data.emailDomains.randomElement()!
+        let domain = Lorem<String>.Data.emailDomains.randomElement()!
         return (firstName + delimiter + lastName + "@" + domain).lowercased()
     }
 
     /// Returns a 140 character placeholder representing a tweet
-    static var tweet: String {
-        L.Data.tweets.randomElement()!
+    static var tweet: Content {
+        Lorem<String>.Data.tweets.randomElement()!
     }
 
     /// Returns a set of placeholder keywords, containing 5 to 10 words
-    static var keywords: String {
+    static var keywords: Content {
         Composer(word, countRange: 5...10, separator: ", ")
     }
 
     /// Returns a set of placeholder keywords for representing the specified number of words
     /// - Parameter count: The number of times a word should be generated
-    static func keywords(_ count: Int) -> String {
+    static func keywords(_ count: Int) -> Content {
         Composer(word, count: count, separator: ", ")
     }
 
     /// Returns a set of placeholder keywords for representing the specified number of words
     /// - Parameter countRange: The number of times a word should be generated, the actual count will be a random value in the provided range
-    static func keywords(_ countRange: ClosedRange<Int>) -> String {
+    static func keywords(_ countRange: ClosedRange<Int>) -> Content {
         Composer(word, countRange: countRange, separator: ", ")
     }
 
@@ -139,7 +141,7 @@ public extension Lorem where Content == String {
 
     /// Returns a placeholder date, within the past 20 years, using the specified format
     /// - Parameter format: The format to apply to the date
-    static func date(_ format: DateFormat) -> String {
+    static func date(_ format: DateFormat) -> Content {
         date(within: 20, component: .year, format: format)
     }
 
@@ -149,7 +151,7 @@ public extension Lorem where Content == String {
     ///   - component: The calendar component to offset
     ///   - locale: The locale the `Calendar` should use
     ///   - format: The format to apply to the date
-    static func date(within value: Int, component: DateComponent, locale: Locale = .init(identifier: "en_US_POSIX"), format: DateFormat) -> String {
+    static func date(within value: Int, component: DateComponent, locale: Locale = .init(identifier: "en_US_POSIX"), format: DateFormat) -> Content {
         let date = Lorem<Date>.date(within: value, component: component, locale: locale)
         return Lorem<Date>.formatter(format: format).string(for: date) ?? ""
     }
